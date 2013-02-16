@@ -18,7 +18,7 @@ DESC="mongrel2 webserver"
 PID=<%= @pid %>
 PRIVBIND=/usr/sbin/privbind
 PRIVBIND_OPTS="-u <%= @user %>"
-FULL_CMD="(cd <%= node[:mongrel2][:chroot] %> && $PRIVBIND $PRIVBIND_OPTS $DAEMON)"
+FULL_CMD="$PRIVBIND $PRIVBIND_OPTS $DAEMON"
 
 # Include nginx defaults if available
 if [ -f /etc/default/nginx ]; then
@@ -35,8 +35,9 @@ set -e
 case "$1" in
   start)
     echo -n "Starting $DESC: "
-    start-stop-daemon --start --quiet --pidfile $PID \
-        --exec $FULL_CMD -- start $DAEMON_OPTS || true
+    (cd /home/mongrel2 &&
+      start-stop-daemon --start --quiet --pidfile $PID \
+        --exec $FULL_CMD -- start $DAEMON_OPTS) || true
     echo "$NAME."
     ;;
 
