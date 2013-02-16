@@ -7,6 +7,6 @@ The entire server configuration can be found in this repository and users the ch
 
 You will need to install ruby from source and then gem install chef. This will provide you with the chef-solo executable. Check out this repository in to /var/chef and then run
 
-    chef-solo -c solo.rb -o "recipe[build-essential],recipe[haskell],recipe[java]"
+    chef-solo -c solo.rb -j nodes/sdfunctional.json
 
 Xavier is still getting a handle on how to do these things the 'right way' so feel free to shoot him a message.

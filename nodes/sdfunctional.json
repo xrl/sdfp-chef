@@ -4,6 +4,10 @@
   "chef_type": "Chef::Node",
   "default_attributes": {},
   "env_run_lists": {},
-  "run_list": ["recipe[build-essential]"],
+  "run_list": ["recipe[build-essential]",
+               "recipe[haskell]",
+               "recipe[java]",
+               "recipe[git]",
+               "recipe[mongrel2]"],
   "override_attributes": {}
 }
