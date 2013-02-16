@@ -11,9 +11,10 @@
 ### END INIT INFO
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=<%= @src_binary %>
+DAEMON=<%= @m2sh %>
+DAEMON_OPTS="-db <%= @db %> -name <%= @name %>"
 NAME=mongrel2
-DESC=mongrel2 webserver
+DESC="mongrel2 webserver"
 PID=<%= @pid %>
 PRIVBIND=/usr/sbin/privbind
 
@@ -23,25 +24,17 @@ if [ -f /etc/default/nginx ]; then
 fi
 
 test -x $DAEMON || exit 0
+test -x $PRIVBIND || exit 0
 
 set -e
 
 . /lib/lsb/init-functions
 
-test_nginx_config() {
-  if $DAEMON -t $DAEMON_OPTS >/dev/null 2>&1; then
-    return 0
-  else
-    $DAEMON -t $DAEMON_OPTS
-    return $?
-  fi
-}
-
 case "$1" in
   start)
     echo -n "Starting $DESC: "
     start-stop-daemon --start --quiet --pidfile $PID \
-        --exec $DAEMON -- $DAEMON_OPTS || true
+        --exec $PRIVBIND $DAEMON -- start $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
@@ -57,15 +50,13 @@ case "$1" in
     start-stop-daemon --stop --quiet --pidfile \
         $PID --exec $DAEMON || true
     sleep 1
-    test_nginx_config
     start-stop-daemon --start --quiet --pidfile \
-        $PID --exec $DAEMON -- $DAEMON_OPTS || true
+        $PID --exec $PRIVBIND $DAEMON -- start $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
   reload)
     echo -n "Reloading $DESC configuration: "
-    test_nginx_config
     start-stop-daemon --stop --signal HUP --quiet --pidfile $PID \
         --exec $DAEMON || true
     echo "$NAME."

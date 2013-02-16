@@ -91,8 +91,10 @@ when "ubuntu"
     group  "root"
     mode   00755
     variables(
-      :src_binary => node[:mongrel2][:prefix] + "/bin/m2sh",
-      :pid =>        node[:mongrel2][:chroot] + "/run/mongrel2.pid"
+      :m2sh => node[:mongrel2][:prefix] + "/bin/m2sh",
+      :pid  => node[:mongrel2][:chroot] + "/run/mongrel2.pid",
+      :name => node[:mongrel2][:name],
+      :db   => node[:mongrel2][:chroot] + "/etc/mongrel2.sqlite"
     )
   end
 end
