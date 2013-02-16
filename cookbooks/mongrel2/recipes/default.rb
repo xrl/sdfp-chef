@@ -62,34 +62,34 @@ end
 #   checksum node[:mongrel2][:checksum]
 # end
 
-bash "install mongrel2 #{node[:mongrel2][:src_version]}" do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOH
-    tar -jxf #{m2_tar_gz}
-    cd mongrel2-#{node[:mongrel2][:src_version]}
-    LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib:$LD_LIBRARY_PATH make clean all
-    PREFIX=#{basedir} make install
-  EOH
-  not_if { ::FileTest.exists?("#{basedir}/bin") }
-end
+# bash "install mongrel2 #{node[:mongrel2][:src_version]}" do
+#   cwd Chef::Config[:file_cache_path]
+#   code <<-EOH
+#     tar -jxf #{m2_tar_gz}
+#     cd mongrel2-#{node[:mongrel2][:src_version]}
+#     LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib:$LD_LIBRARY_PATH make clean all
+#     PREFIX=#{basedir} make install
+#   EOH
+#   not_if { ::FileTest.exists?("#{basedir}/bin") }
+# end
 
-bash "generate config <mongrel2-#{node[:mongrel2][:src_version]}" do
-  cwd node[:mongrel2][:chroot]
-  code <<-EOH
-    LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib bin/m2sh load --db etc/mongrel2.sqlite --config etc/mongrel2.conf
-  EOH
-end
+# bash "generate config <mongrel2-#{node[:mongrel2][:src_version]}" do
+#   cwd node[:mongrel2][:chroot]
+#   code <<-EOH
+#     LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib bin/m2sh load --db etc/mongrel2.sqlite --config etc/mongrel2.conf
+#   EOH
+# end
 
-directory "/etc/sv/mongrel2" do
-  recursive true
-  owner "root"
-  group "root"
-  mode 0755
-end
+# directory "/etc/sv/mongrel2" do
+#   recursive true
+#   owner "root"
+#   group "root"
+#   mode 0755
+# end
 
-daemontools_service "mongrel2" do
-  directory "/etc/sv/mongrel2"
-  template "mongrel2"
-  action [:enable,:start]
-  log true
-end
+# daemontools_service "mongrel2" do
+#   directory "/etc/sv/mongrel2"
+#   template "mongrel2"
+#   action [:enable,:start]
+#   log true
+# end
