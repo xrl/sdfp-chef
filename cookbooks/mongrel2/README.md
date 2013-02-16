@@ -42,6 +42,7 @@ LICENSE AND AUTHOR
 ==================
 
 Author:: Thomas Rampelberg (<thomas@saunter.org>)
+Author:: Xavier Lange (<xrlange@gmail.com>)
 
 Copyright 2011, Thomas Rampelberg
 
