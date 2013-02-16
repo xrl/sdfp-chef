@@ -61,6 +61,8 @@ end
 
 template "#{basedir}/etc/mongrel2.conf" do
   source "m2.conf.erb"
+  user   m2_user
+  group  m2_user
 end
 
 cookbook_file "#{basedir}/www/index.html" do
