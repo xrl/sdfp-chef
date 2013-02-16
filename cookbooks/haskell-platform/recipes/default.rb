@@ -22,8 +22,8 @@
 # THE SOFTWARE.
 
 cookbook_file "/etc/profile.d/cabal.sh" do
-  owner node.travis_build_environment.user
-  group node.travis_build_environment.group
+  owner node.user
+  group node.group
   mode 0755
 end
 
