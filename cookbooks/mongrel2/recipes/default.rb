@@ -44,7 +44,7 @@ execute "build and install mongrel2" do
   creates `which m2sh`.chomp
   command <<-SH
     make
-    make install
+    PREFIX=#{node[:mongrel2][:prefix]} make install
   SH
 end
 
@@ -76,6 +76,25 @@ bash "generate config <mongrel2-#{node[:mongrel2][:src_version]}" do
   code <<-EOH
     m2sh load --db etc/mongrel2.sqlite --config etc/mongrel2.conf
   EOH
+end
+
+file "#{basedir}/etc/mongrel2.sqlite" do
+  user  m2_user
+  group m2_user
+end
+
+case node['platform']
+when "ubuntu"
+  template "/etc/init.d/mongrel2" do
+    source "mongrel2.init.erb"
+    user   "root"
+    group  "root"
+    mode   00755
+    variables(
+      :src_binary => node[:mongrel2][:prefix] + "/bin/m2sh",
+      :pid =>        node[:mongrel2][:chroot] + "/run/mongrel2.pid"
+    )
+  end
 end
 
 # directory "/etc/sv/mongrel2" do
