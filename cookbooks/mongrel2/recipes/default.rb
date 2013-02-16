@@ -30,10 +30,19 @@ user node[:mongrel2][:user] do
   system true
 end
 
-git "/usr/local/src/mongrel2" do
+source_dir = "/usr/local/src/mongrel2"
+
+git source_dir do
   repository node[:mongrel2][:source][:git][:url]
   revision   node[:mongrel2][:source][:git][:branch]
   action :sync
+end
+
+execute "build and install mongrel2" do
+  cwd source_dir
+  command <<-SH
+    make
+  SH
 end
 
 # m2_tar_gz = File.join(Chef::Config[:file_cache_path], "/", "mongrel2-#{node[:mongrel2][:src_version]}.tar.gz")
