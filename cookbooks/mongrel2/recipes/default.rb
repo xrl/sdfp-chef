@@ -40,7 +40,7 @@ end
 
 execute "build and install mongrel2" do
   cwd source_dir
-  creates system("which m2sh").chomp
+  creates `which m2sh`.chomp
   command <<-SH
     make
     make install
