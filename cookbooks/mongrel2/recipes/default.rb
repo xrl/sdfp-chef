@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-%w{ libzmq libzmq-dev sqlite3 libsqlite3-dev }.each do |pkg|
+%w{ libzmq1 libzmq-dev sqlite3 libsqlite3-dev }.each do |pkg|
   package pkg do
     action :upgrade
   end
