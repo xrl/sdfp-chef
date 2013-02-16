@@ -19,8 +19,6 @@ supports "mac_os_x", ">= 10.6.0"
   depends cookbook
 end
 
-depends "runit", "~> 1.0"
-
 attribute "git/server/base_path",
   :display_name => "Git Daemon Base Path",
   :description => "A directory containing git repositories to be exposed by the git-daemon",
