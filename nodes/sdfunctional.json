@@ -1,3 +1,9 @@
 {
-  
+  "name": "sdfunctional",
+  "description": "SDFunctional's multiuser environment",
+  "chef_type": "Chef::Node",
+  "default_attributes": {},
+  "env_run_lists": {},
+  "run_list": ["recipe[build-essential]"],
+  "override_attributes": {}
 }
