@@ -17,6 +17,7 @@ NAME=mongrel2
 DESC="mongrel2 webserver"
 PID=<%= @pid %>
 PRIVBIND=/usr/sbin/privbind
+PRIVBIND_OPTS="-u <%= @user %>"
 
 # Include nginx defaults if available
 if [ -f /etc/default/nginx ]; then
@@ -34,7 +35,7 @@ case "$1" in
   start)
     echo -n "Starting $DESC: "
     start-stop-daemon --start --quiet --pidfile $PID \
-        --exec $PRIVBIND $DAEMON -- start $DAEMON_OPTS || true
+        --exec $PRIVBIND $PRIVBIND_OPTS $DAEMON -- start $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
@@ -51,7 +52,7 @@ case "$1" in
         $PID --exec $DAEMON || true
     sleep 1
     start-stop-daemon --start --quiet --pidfile \
-        $PID --exec $PRIVBIND $DAEMON -- start $DAEMON_OPTS || true
+        $PID --exec $PRIVBIND $PRIVBIND_OPTS $DAEMON -- start $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
