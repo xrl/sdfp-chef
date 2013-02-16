@@ -18,6 +18,7 @@ DESC="mongrel2 webserver"
 PID=<%= @pid %>
 PRIVBIND=/usr/sbin/privbind
 PRIVBIND_OPTS="-u <%= @user %>"
+FULL_CMD="(cd <%= node[:mongrel2][:chroot] %> && $PRIVBIND $PRIVBIND_OPTS $DAEMON)"
 
 # Include nginx defaults if available
 if [ -f /etc/default/nginx ]; then
@@ -34,8 +35,10 @@ set -e
 case "$1" in
   start)
     echo -n "Starting $DESC: "
+    pushd <%= node[:mongrel2][:chroot] %>
     start-stop-daemon --start --quiet --pidfile $PID \
-        --exec $PRIVBIND $PRIVBIND_OPTS $DAEMON -- start $DAEMON_OPTS || true
+        --exec $FULL_CMD -- start $DAEMON_OPTS || true
+    popd
     echo "$NAME."
     ;;
 
@@ -52,7 +55,7 @@ case "$1" in
         $PID --exec $DAEMON || true
     sleep 1
     start-stop-daemon --start --quiet --pidfile \
-        $PID --exec $PRIVBIND $PRIVBIND_OPTS $DAEMON -- start $DAEMON_OPTS || true
+        $PID --exec $FULL_CMD -- start $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
@@ -64,7 +67,7 @@ case "$1" in
     ;;
 
   status)
-    status_of_proc -p $PID "$DAEMON" nginx && exit 0 || exit $?
+    status_of_proc -p $PID "$DAEMON" mongrel2 && exit 0 || exit $?
     ;;
   *)
     echo "Usage: $NAME {start|stop|restart|reload|force-reload|status|configtest}" >&2
