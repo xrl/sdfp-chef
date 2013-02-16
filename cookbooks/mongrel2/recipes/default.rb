@@ -28,6 +28,7 @@ end
 user node[:mongrel2][:user] do
   comment "Mongrel2 Administrator"
   system true
+  shell "/bin/bash"
 end
 
 source_dir = "/usr/local/src/mongrel2"
