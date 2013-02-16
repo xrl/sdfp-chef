@@ -35,10 +35,8 @@ set -e
 case "$1" in
   start)
     echo -n "Starting $DESC: "
-    pushd <%= node[:mongrel2][:chroot] %>
     start-stop-daemon --start --quiet --pidfile $PID \
         --exec $FULL_CMD -- start $DAEMON_OPTS || true
-    popd
     echo "$NAME."
     ;;
 
