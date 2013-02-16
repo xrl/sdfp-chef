@@ -48,7 +48,7 @@ execute "build and install mongrel2" do
 end
 
 basedir = node[:mongrel2][:chroot]
-m2_user = default[:mongrel2][:user]
+m2_user = node[:mongrel2][:user]
 
 %w{ etc run logs tmp www }.each do |dir|
   directory "#{basedir}/#{dir}" do
