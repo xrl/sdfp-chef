@@ -47,49 +47,33 @@ execute "build and install mongrel2" do
   SH
 end
 
-# m2_tar_gz = File.join(Chef::Config[:file_cache_path], "/", "mongrel2-#{node[:mongrel2][:src_version]}.tar.gz")
-# basedir = "/opt/mongrel2-#{node[:mongrel2][:src_version]}"
+basedir = node[:mongrel2][:chroot]
+m2_user = default[:mongrel2][:user]
 
-# %w{ etc run logs tmp www }.each do |dir|
-#   directory "#{basedir}/#{dir}" do
-#     recursive true
-#     owner "m2"
-#     group "m2"
-#     mode "0755"
-#   end
-# end
+%w{ etc run logs tmp www }.each do |dir|
+  directory "#{basedir}/#{dir}" do
+    recursive true
+    owner m2_user
+    group m2_user
+    mode "0755"
+  end
+end
 
-# template "#{basedir}/etc/mongrel2.conf" do
-#   source "m2.conf.erb"
-# end
+template "#{basedir}/etc/mongrel2.conf" do
+  source "m2.conf.erb"
+end
 
-# cookbook_file "#{basedir}/www/index.html" do
-#   source "index.html"
-#   mode "0755"
-# end
+cookbook_file "#{basedir}/www/index.html" do
+  source "index.html"
+  mode "0755"
+end
 
-# remote_file m2_tar_gz do
-#   source node[:mongrel2][:src_mirror]
-#   checksum node[:mongrel2][:checksum]
-# end
-
-# bash "install mongrel2 #{node[:mongrel2][:src_version]}" do
-#   cwd Chef::Config[:file_cache_path]
-#   code <<-EOH
-#     tar -jxf #{m2_tar_gz}
-#     cd mongrel2-#{node[:mongrel2][:src_version]}
-#     LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib:$LD_LIBRARY_PATH make clean all
-#     PREFIX=#{basedir} make install
-#   EOH
-#   not_if { ::FileTest.exists?("#{basedir}/bin") }
-# end
-
-# bash "generate config <mongrel2-#{node[:mongrel2][:src_version]}" do
-#   cwd node[:mongrel2][:chroot]
-#   code <<-EOH
-#     LD_LIBRARY_PATH=/opt/zeromq-#{node[:zeromq][:src_version]}/lib bin/m2sh load --db etc/mongrel2.sqlite --config etc/mongrel2.conf
-#   EOH
-# end
+bash "generate config <mongrel2-#{node[:mongrel2][:src_version]}" do
+  cwd basedir
+  code <<-EOH
+    m2sh load --db etc/mongrel2.sqlite --config etc/mongrel2.conf
+  EOH
+end
 
 # directory "/etc/sv/mongrel2" do
 #   recursive true
