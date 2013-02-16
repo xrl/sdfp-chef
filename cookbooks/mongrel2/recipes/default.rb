@@ -42,6 +42,7 @@ execute "build and install mongrel2" do
   cwd source_dir
   command <<-SH
     make
+    make install
   SH
 end
 

@@ -18,7 +18,7 @@
 # limitations under the License.
 
 default[:mongrel2][:source][:git][:url]    = "git://github.com/zedshaw/mongrel2.git"
-default[:mongrel2][:source][:git][:branch] = "develop"
+default[:mongrel2][:source][:git][:branch] = "master"
 default[:mongrel2][:user]                  = "mongrel2"
 default[:mongrel2][:chroot]                = "/home/mongrel2"
 default[:mongrel2][:uuid]                  = "f400bf85-4538-4f7a-8908-67e313d515c2"
