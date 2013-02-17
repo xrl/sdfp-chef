@@ -10,7 +10,11 @@ main = Server(
     hosts = [
         Host(name="localhost", routes={
             '/': Dir(base='www/', index_file='index.html',
-                     default_ctype='text/html')
+                     default_ctype='text/html'),
+            '/haskell': Handler(send_spec='tcp://127.0.0.1:8000',
+                                recv_spec='tcp://127.0.0.1:8001',
+                                send_ident='7997ce6e-d5ab-40ce-9536-169c26a11473'),
+            '/clojure': Proxy(addr=’127.0.0.1’, port=8010) 
         })
     ]
 )
