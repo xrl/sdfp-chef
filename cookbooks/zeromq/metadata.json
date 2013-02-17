@@ -1,0 +1,30 @@
+{
+  "name": "zeromq",
+  "description": "Installs/Configures zeromq3 library",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "maintainer": "Xavier Lange",
+  "maintainer_email": "xrlange@gmail.com",
+  "license": "Apache2",
+  "platforms": {
+  },
+  "dependencies": {
+    "recipe[build-essential]"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}

@@ -5,5 +5,4 @@ description      "Installs/Configures mongrel2"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.5"
 
-%w( build-essential ).each{|cookbook| depends cookbook }
-# depends "daemontools"
+%w( build-essential zeromq ).each{|cookbook| depends cookbook }
