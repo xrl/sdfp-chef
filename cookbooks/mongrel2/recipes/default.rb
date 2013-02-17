@@ -33,7 +33,7 @@ end
 
 zmq_source_dir = "/usr/local/src/zeromq"
 git zmq_source_dir do
-  repository "git://github.com/zeromq/libzmq.git"
+  repository "git://github.com/zeromq/zeromq3-x.git"
   revision   "v3.2.2"
   action :sync
 end
