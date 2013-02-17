@@ -39,7 +39,12 @@ git zmq_source_dir do
 end
 execute "build and install libzmq" do
   cwd zmq_source_dir
-  create 
+  command <<-SH
+    ./configure
+    make
+    make install
+    ldconfig
+  SH
 end
 
 
