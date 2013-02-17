@@ -40,6 +40,7 @@ git zmq_source_dir do
 end
 execute "build and install libzmq" do
   cwd zmq_source_dir
+  creates "/usr/local/lib/libzmq.so"
   command <<-SH
     ./autogen.sh
     ./configure
