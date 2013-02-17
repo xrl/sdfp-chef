@@ -110,7 +110,7 @@ when "ubuntu"
     group  "root"
     mode   00755
     variables(
-      :m2sh => node[:mongrel2][:prefix] + "/bin/m2sh",
+      :m2sh => node[:mongrel2][:prefix] + "/bin/mongrel2",
       :pid  => node[:mongrel2][:chroot] + "/run/mongrel2.pid",
       :db   => node[:mongrel2][:chroot] + "/etc/mongrel2.sqlite",
       :uuid => node[:mongrel2][:uuid]
