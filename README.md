@@ -10,3 +10,12 @@ You will need to install ruby from source and then gem install chef. This will p
     chef-solo -c solo.rb -j nodes/sdfunctional.json
 
 Xavier is still getting a handle on how to do these things the 'right way' so feel free to shoot him a message.
+
+Vagrant
+-------
+
+    vagrant box add precise32 http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-vagrant-i386-disk1.box
+    vagrant ssh
+    sudo gem install chef --no-rdoc --no-ri
+    logout
+    vagrant provision
