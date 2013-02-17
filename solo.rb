@@ -1,2 +1,2 @@
-node_name "sdfunctional"
-node_path "/var/chef/node"
+node_name      "sdfunctional"
+node_path      "nodes"
