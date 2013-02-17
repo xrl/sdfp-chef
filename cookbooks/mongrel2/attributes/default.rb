@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default[:mongrel2][:source][:git][:url]    = "git://github.com/zedshaw/mongrel2.git"
+default[:mongrel2][:source][:git][:url]    = "git://github.com/xrl/mongrel2.git"
 default[:mongrel2][:source][:git][:branch] = "develop"
 default[:mongrel2][:prefix]                = "/usr/local"
 default[:mongrel2][:user]                  = "mongrel2"

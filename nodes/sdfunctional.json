@@ -8,6 +8,7 @@
                "recipe[haskell]",
                "recipe[java]",
                "recipe[git]",
+               "recipe[zeromq]",
                "recipe[mongrel2]"],
   "override_attributes": {}
 }
