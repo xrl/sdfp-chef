@@ -31,6 +31,7 @@ user node[:mongrel2][:user] do
   shell "/bin/bash"
 end
 
+package "libtool"
 zmq_source_dir = "/usr/local/src/zeromq"
 git zmq_source_dir do
   repository "git://github.com/zeromq/zeromq3-x.git"
@@ -40,6 +41,7 @@ end
 execute "build and install libzmq" do
   cwd zmq_source_dir
   command <<-SH
+    ./autogen.sh
     ./configure
     make
     make install
