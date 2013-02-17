@@ -12,7 +12,7 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=<%= @m2sh %>
-DAEMON_OPTS="-db <%= @db %> <%= @uuid %>"
+DAEMON_OPTS="<%= @db %> <%= @uuid %>"
 NAME=mongrel2
 DESC="mongrel2 webserver"
 PID=<%= @pid %>
