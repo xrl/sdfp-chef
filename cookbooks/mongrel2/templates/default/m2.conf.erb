@@ -5,7 +5,7 @@ main = Server(
     chroot="<%= @node[:mongrel2][:chroot] %>",
     default_host="<%= @node[:mongrel2][:hostname] %>",
     name="<%= @node[:mongrel2][:name] %>",
-    pid_file="/home/mongrel2/run/mongrel2.pid",
+    pid_file="/run/mongrel2.pid",
     port=<%= @node[:mongrel2][:port] %>,
     hosts = [
         Host(name="localhost", routes={

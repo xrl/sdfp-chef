@@ -19,7 +19,7 @@
 # limitations under the License.
 #
 
-%w{ libzmq1 libzmq-dev sqlite3 libsqlite3-dev }.each do |pkg|
+%w{ sqlite3 libsqlite3-dev }.each do |pkg|
   package pkg do
     action :upgrade
   end
@@ -30,6 +30,18 @@ user node[:mongrel2][:user] do
   system true
   shell "/bin/bash"
 end
+
+zmq_source_dir = "/usr/local/src/zeromq"
+git zmq_source_dir do
+  repository "git://github.com/zeromq/libzmq.git"
+  revision   "v3.2.2"
+  action :sync
+end
+execute "build and install libzmq" do
+  cwd zmq_source_dir
+  create 
+end
+
 
 source_dir = "/usr/local/src/mongrel2"
 
@@ -93,9 +105,8 @@ when "ubuntu"
     variables(
       :m2sh => node[:mongrel2][:prefix] + "/bin/m2sh",
       :pid  => node[:mongrel2][:chroot] + "/run/mongrel2.pid",
-      :user => node[:mongrel2][:user],
-      :name => node[:mongrel2][:name],
-      :db   => node[:mongrel2][:chroot] + "/etc/mongrel2.sqlite"
+      :db   => node[:mongrel2][:chroot] + "/etc/mongrel2.sqlite",
+      :uuid => node[:mongrel2][:uuid]
     )
   end
 end

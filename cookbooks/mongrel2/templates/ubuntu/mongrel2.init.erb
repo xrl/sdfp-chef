@@ -12,12 +12,10 @@
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=<%= @m2sh %>
+DAEMON_OPTS="-db <%= @db %> <%= @uuid %>"
 NAME=mongrel2
 DESC="mongrel2 webserver"
 PID=<%= @pid %>
-PRIVBIND=/usr/sbin/privbind
-PRIVBIND_OPTS="-u <%= @user %>"
-DAEMON_OPTS="$PRIVBIND_OPTS $DAEMON -db <%= @db %> -name <%= @name %>"
 
 # Include nginx defaults if available
 if [ -f /etc/default/nginx ]; then
@@ -34,9 +32,7 @@ set -e
 case "$1" in
   start)
     echo -n "Starting $DESC: "
-    (cd /home/mongrel2 &&
-      start-stop-daemon --start --quiet --pidfile $PID \
-        --exec $PRIVBIND -- start $DAEMON_OPTS) || true
+    start-stop-daemon --quiet --exec $DAEMON --pidfile $PID --start -- $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
