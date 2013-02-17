@@ -45,11 +45,9 @@ case "$1" in
 
   restart|force-reload)
     echo -n "Restarting $DESC: "
-    start-stop-daemon --stop --quiet --pidfile \
-        $PID --exec $DAEMON || true
+    start-stop-daemon --stop --quiet --pidfile $PID --exec $DAEMON || true
     sleep 1
-    start-stop-daemon --start --quiet --pidfile \
-        $PID --exec $FULL_CMD -- start $DAEMON_OPTS || true
+    start-stop-daemon --quiet --exec $DAEMON --pidfile $PID --start -- $DAEMON_OPTS || true
     echo "$NAME."
     ;;
 
