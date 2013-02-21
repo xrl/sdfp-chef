@@ -8,8 +8,8 @@
                "recipe[haskell]",
                "recipe[java]",
                "recipe[git]",
-               "recipe[zeromq]",
-               "recipe[mongrel2]",
-               "recipe[mercurial]"],
+               "recipe[mongrel2]", "recipe[zeromq]",
+               "recipe[chibi-scheme]"
+              ],
   "override_attributes": {}
 }
