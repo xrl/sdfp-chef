@@ -7,7 +7,7 @@
   "run_list": ["recipe[build-essential]",
                "recipe[haskell]",
                "recipe[java]",
-               "recipe[git]",
+               "recipe[git]", "recipe[mercurial]",
                "recipe[mongrel2]", "recipe[zeromq]",
                "recipe[chibi-scheme]"
               ],
