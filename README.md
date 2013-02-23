@@ -15,7 +15,9 @@ Vagrant
 -------
 
     vagrant box add precise32 http://cloud-images.ubuntu.com/precise/current/precise-server-cloudimg-vagrant-i386-disk1.box
+    vagrant up
     vagrant ssh
+    sudo apt-get install rubygems (if you haven't installed ruby/rubygems by source)
     sudo gem install chef --no-rdoc --no-ri
     logout
     vagrant provision
