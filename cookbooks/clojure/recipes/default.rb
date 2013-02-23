@@ -16,10 +16,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-execute "download lein script and put it in /usr/bin" do
-	cwd "/usr/bin"
-  command "wget http://raw.github.com/technomancy/leiningen/stable/bin/lein"
-  command "chmod a+x /usr/bin/lein"
-  command "lein"
+bash "install_lein" do
+  user "root"
+  cwd "/tmp"
+  code <<-EOH
+    wget https://raw.github.com/technomancy/leiningen/stable/bin/lein -O /usr/bin/lein
+    chmod a+x /usr/bin/lein
+  EOH
 end
+
